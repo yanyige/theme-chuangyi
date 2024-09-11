@@ -3,83 +3,378 @@
   th:replace="~{modules/layout :: layout(_head = null,_content = ~{::content},_title = null,page_js = null)}">
 <th:block th:fragment="content" th:with="banner_img_height = ${#conversions.convert(theme.config.index.banner_img_height, 'java.lang.Integer')},
 isLazyload = ${theme.config.global.lazyload.enable},loadingImg = ${theme.config.global.lazyload.loading_img}">
-  <header
-    th:with="banner_img=${theme.config.index.banner_img},banner_mask_alpha=${theme.config.index.banner_mask_alpha},_title=${theme.config.index.slogan.enable ? theme.config.index.slogan.text : site.title}">
-    <th:block th:replace="~{'modules/header'}" />
+  <header th:with="banner_img=${theme.config.index.banner_img},banner_mask_alpha=${theme.config.index.banner_mask_alpha},_title=${theme.config.index.slogan.enable ? theme.config.index.slogan.text : site.title}">
+    <th:block th:replace="~{'modules/header/navigation'}" />
+    <link rel="stylesheet" th:href="@{/assets/css/fullpage.css?v={version}(version=${theme.spec.version})}">
+    <link rel="stylesheet" th:href="@{/assets/css/index.css?v={version}(version=${theme.spec.version})}">
+    <link rel="stylesheet" th:href="@{/assets/css/index_media.css?v={version}(version=${theme.spec.version})}">
+    <link rel="stylesheet" th:href="@{/assets/css/swiper.min.css?v={version}(version=${theme.spec.version})}">
+    <style type="text/css">
+      body {
+        background-color: white;
+      }
+
+      h1 {
+        font-size: 6em;
+        font-size: calc(2em + 2vw);
+        font-family: arial, helvetica;
+        margin: 0;
+      }
+
+      .intro p {
+        width: 50%;
+        margin: 0.5em auto;
+        font-size: 1em;
+      }
+
+      .intro h1 {
+        font-family: "OPPOSans-L";
+        margin: .4em 0;
+      }
+
+      .intro h1.vague {
+        filter: blur(2px);
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        /* 使文本居中 */
+        margin: 0 auto;
+      }
+
+      .section {
+        font-family: arial, helvetica;
+        text-align: center;
+        padding: 3em 3em;
+      }
+
+      .fp-section {
+        background-size: cover;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+
+      /* Backgrounds colors for sections */
+      .fp-section:nth-child(1)::before {
+        transition: all .5s;
+        animation-name: change;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        opacity: 0.5;
+      }
+
+      .fp-section:nth-child(2)::before {
+        background-image: url('[(${#theme.assets("/img/2.1.jpg")})]');
+        background-attachment: fixed;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        opacity: 0.5;
+      }
+
+      .fp-section:nth-child(3)::before {
+        background-image: url('[(${#theme.assets("/img/11.jpg")})]');
+        background-attachment: fixed;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        opacity: 0.5;
+      }
+
+      .fp-section:nth-child(4)::before {
+        background-image: url('[(${#theme.assets("/img/5.1.jpg")})]');
+        background-attachment: fixed;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        opacity: 0.5;
+      }
+
+      /* Overwriting styles for the navigation dots */
+      #fp-nav ul li a span,
+      .fp-slidesNav ul li a span {
+        background: orange;
+      }
+
+      #fp-nav ul li {
+        margin: 20px 7px;
+      }
+
+      @keyframes change {
+        0% {
+          background-image: url('[(${#theme.assets("/img/1.1.jpg")})]');
+        }
+
+        25% {
+          background-image: url('[(${#theme.assets("/img/1.2.jpg")})]');
+        }
+
+        50% {
+          background-image: url('[(${#theme.assets("/img/1.3.jpg")})]');
+        }
+
+        75% {
+          background-image: url('[(${#theme.assets("/img/1.4.png")})]');
+        }
+
+        100% {
+          background-image: url('[(${#theme.assets("/img/1.1.jpg")})]');
+        }
+      }
+
+      .swiper-container, .swiper-container1 {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .swiper-container .swiper-slide:nth-child(1) {
+        background-image: url('[(${#theme.assets("/img/3.1.jpg")})]');
+      }
+
+      .swiper-container .swiper-slide:nth-child(2) {
+        background-image: url('[(${#theme.assets("/img/3.2.jpg")})]');
+      }
+
+      .swiper-container .swiper-slide:nth-child(3) {
+        background-image: url('[(${#theme.assets("/img/3.3.jpg")})]');
+      }
+
+      .swiper-container .swiper-slide:nth-child(4) {
+        background-image: url('[(${#theme.assets("/img/3.4.jpg")})]');
+      }
+
+      .swiper-container1 .swiper-slide:nth-child(1) {
+        background-image: url('[(${#theme.assets("/img/4.1.jpg")})]');
+      }
+
+      .swiper-container1 .swiper-slide:nth-child(2) {
+        background-image: url('[(${#theme.assets("/img/4.2.jpg")})]');
+      }
+
+      .swiper-container1 .swiper-slide:nth-child(3) {
+        background-image: url('[(${#theme.assets("/img/4.6.png")})]');
+      }
+
+      .swiper-container1 .swiper-slide:nth-child(4) {
+        background-image: url('[(${#theme.assets("/img/4.4.jpg")})]');
+      }
+    </style>
   </header>
   <main>
-    <div class="container nopadding-x-md" >
-      <div id="board" th:style="${banner_img_height >= 100 && theme.config.global.banner.parallax ? 'margin-top: 0' : ''}">
+    <!-- fullPage.js HTML -->
+    <div id="fullpage">
+      <div class="section">
+        <div class="intro">
+          <h1 class="vague">Create Make Difference</h1>
+          <h1>Create Make Difference</h1>
+          <h1 class="vague">创易工作室</h1>
+          <h1>创易工作室</h1>
+          <p>浙江安防职业技术学院</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title-wrap">
+          <div class="title-icon"></div>
+          <div class="title-content">
+            <div class="title-bg"></div>
+            <div class="title">加入创易：遇见更好的你</div>
+            <div class="title2">
+              <h2>Meeting a better version of you</h2>
+            </div>
+            <div class="title-detail">用热爱创造无限可能，期待有才华有能力的你</div>
+          </div>
+        </div>
         <div class="container">
-          <div class="row">
-            <div class="col-12 col-md-10 m-auto">
-              <th:block th:each="post,iStat : ${posts.items}">
-                <div class="row mx-auto index-card" th:with="default_index_img= ${#strings.contains(theme.config.post.default_index_img,'?') ? theme.config.post.default_index_img+'&' : theme.config.post.default_index_img+'?'},
-                index_img = ${not #strings.isEmpty(post.spec.cover) ? thumbnail.gen(post.spec.cover, 'm') : #strings.isEmpty(theme.config.post.default_index_img) ? theme.config.post.default_index_img : default_index_img+post.spec.title}">
-                  <th:block >
-                    <div class="col-12 col-md-4 m-auto index-img" th:if="${not #strings.isEmpty(index_img)}">
-                      <a th:href="${post.status.permalink}" target="_self">
-                        <img th:src="${isLazyload ? loadingImg : index_img}"
-                             th:data-original="${ isLazyload ? index_img : ''}"
-                              th:alt="${post.spec.title}">
-                      </a>
-                    </div>
-                  </th:block>
-                  <article th:class="|col-12 col-md-${not #strings.isEmpty(index_img)? '8' : '12'} mx-auto index-info|">
-                    <h2 class="index-header">
-                      <th:block th:if="${theme.config.index.post_sticky.enable && post.spec.pinned}">
-                        <i th:class="|index-pin ${theme.config.index.post_sticky.icon}|" title="Pin on top"></i>
-                      </th:block>
-                      <a th:href="${post.status.permalink}" target="_self" th:text="${post.spec.title}"></a>
-                    </h2>
-                    <a class="index-excerpt ${not #strings.isEmpty(index_img) ? '' : 'index-excerpt__noimg' }"
-                      th:href="${post.status.permalink}" target="_self">
-                      <th:block th:with="excerpt = ${#strings.length(post.status.excerpt) > 200 ? 200 : #strings.length(post.status.excerpt)}">
-                        <div th:text="${#strings.substring(post.status.excerpt,0,excerpt)}">
-                        </div>
-                      </th:block>
-                    </a>
-                    <div class="index-btm post-metas">
-                      <div class="post-meta mr-3">
-                        <i class="iconfont icon-date"></i>
-                        <time th:datetime="${#dates.format(post.spec.publishTime,'yyyy-MM-dd HH:mm')}" pubdate
-                          th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}">
-                        </time>
-                      </div>
-                      <th:block th:if="${not #lists.isEmpty(post.categories)}">
-                        <div class="post-meta mr-3 d-flex align-items-center">
-                          <i class="iconfont icon-category"></i>
-                          <span class="category-chains">
-                            <span class="category-chain">
-                              <a th:href="${post.categories[0].status.permalink}"
-                                class="category-chain-item" th:text="${post.categories[0].spec.displayName}"></a>
-                            </span>
-                          </span>
-                        </div>
-                      </th:block>
-                      <th:block th:if="${not #lists.isEmpty(post.tags)}">
-                        <div class="post-meta">
-                          <i class="iconfont icon-tags"></i>
-                          <a th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}"
-                            th:text="${'#'+tag.spec.displayName}"></a>
-                        </div>
-                      </th:block>
-                    </div>
-                  </article>
-
+          <div class="box">
+            <img th:src="@{/assets/img/boy1.jpeg}" class="container-avatar" />
+            <h2>BE</h2>
+            <h3>后端工程师</h3>
+            <p>
+              后端工程师负责服务器端的开发工作，主要处理数据存储、逻辑实现和系统性能优化。他们使用如Node.js、Java、Python等编程语言，与数据库（如MySQL、MongoDB）交互，确保前端请求能够正确获取和处理数据。后端工程师还负责API接口设计、安全性维护和系统稳定性，保障整个应用的高效运行
+            </p>
+          </div>
+          <div class="box">
+            <img th:src="@{/assets/img/girl1.png}" class="container-avatar" />
+            <h2>FE</h2>
+            <h3>前端工程师</h3>
+            <p>
+              前端工程师负责开发和实现网站或应用的用户界面，主要运用HTML、CSS和JavaScript等技术。他们将设计转化为网页，并确保页面在不同设备和浏览器上的兼容性。同时，前端工程师关注性能优化、响应式设计和用户体验提升，常使用React、Vue.js等框架。
+            </p>
+          </div>
+          <div class="box">
+            <img th:src="@{/assets/img/girl2.jpeg}" class="container-avatar" />
+            <h2>UI</h2>
+            <h3>画师&设计师</h3>
+            <p>
+              画师与设计师负责创作视觉艺术作品，涵盖插画、角色设计、品牌标识和UI设计等领域。画师专注于绘画技巧，常运用手绘或数字工具进行创作；设计师则关注整体视觉效果与用户体验，运用色彩、排版和布局等元素，确保作品在美观和功能性之间的平衡。两者通过合作为各种项目提供创意支持。​
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title-wrap">
+          <div class="title-icon"></div>
+          <div class="title-content">
+            <div class="title-bg"></div>
+            <div class="title">创意少年：人生是一场旅行</div>
+            <div class="title2">
+              <h2>Life is a journey</h2>
+            </div>
+            <div class="title-detail">心怀梦想播撒阳光，我愿化作那工匠为伟大的中国添砖加瓦</div>
+          </div>
+        </div>
+        <div class="container box-container">
+          <div class="container-left block">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+          <div class="container-right block">
+            <div class="title">
+              <h2>创造机遇使每次创意更加容易</h2>
+            </div>
+            <div class="right-text">
+              <p>
+                我们的团队由擅长不同专业领域的教师组成，拥有着独立的工作室，严格的教学方式、一群敢于创作的青年、格式的团队协作方式。我们鼓励每位技术青年的加入，我们畅想团队耀眼的色彩。如果你恰好有创意，那我们的工作室将是你创作最好的画板。
+              </p>
+              <div class="info">
+                <div class="left">
+                  <span class="number">11</span>
+                  <span class="number-text">人</span>
+                  <h3>工作室成员数</h3>
                 </div>
-              </th:block>
-              <nav th:replace="~{modules/widgets/paginator :: paginator('',${posts})}"></nav>
+                <div class="right">
+                  <span class="number">00</span>
+                  <span class="number-text">人</span>
+                  <h3>毕业成员数</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title-wrap">
+          <div class="title-icon"></div>
+          <div class="title-content">
+            <div class="title-bg"></div>
+            <div class="title">超越极限：‌追逐梦想的赛道</div>
+            <div class="title2">
+              <h2>What dreams are made of</h2>
+            </div>
+            <div class="title-detail">把握每一刻，追逐无限可能！""在汗水中挥洒激情，共同追求更强壮的明天！</div>
+          </div>
+        </div>
+        <div class="container box-container">
+          <div class="container-left block">
+            <div class="swiper-container1">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+                <div class="swiper-slide"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+          <div class="container-right block">
+            <div class="title">
+              <h2>在“创易”的道路上，努力是为了成就更好的自己。</h2>
+            </div>
+            <div class="right-text">
+              <p>
+                我们团队中的大部分成员都是从参加校内的比赛互相认识，再在一起学习，一起努力，一起成长。然后参加省赛，虽未能成为前十，但也是留下了我们去过的痕迹。如果你在大学的学习之路上有所迷茫，那就加入我们吧！让我们扫清迷茫，让我们一起努力成长。
+              </p>
+              <div class="info">
+                <div class="left">
+                  <span class="number">12</span>
+                  <span class="number-text">人</span>
+                  <h3>比赛人数</h3>
+                </div>
+                <div class="right">
+                  <span class="number">12</span>
+                  <span class="number-text">个</span>
+                  <h3>获奖个数</h3>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <a id="scroll-top-button" aria-label="TOP" href="#" role="button" th:if="${theme.config.global.scroll_top_arrow}">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
   </main>
 </th:block>
 
 </html>
+
+<script th:src="@{/assets/js/fullpage.js?v={version}(version=${theme.spec.version})}"></script>
+<script th:src="@{/assets/js/swiper.min.js?v={version}(version=${theme.spec.version})}"></script>
+<script>
+  var myFullpage = new fullpage("#fullpage", {
+    anchors: ["firstPage", "secondPage", "3rdPage"],
+
+    // you can also use the HTML attribute data-tooltip on each section instead
+    navigation: true,
+
+    // Navigation for horizontal slides
+    slidesNavigation: true,
+
+    controlArrows: false,
+    // Loop vertical options
+    loopTop: true,
+    loopBottom: true,
+    css3:false
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var swiper = new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      spaceBetween: 30,
+      effect: 'fade'
+    });
+
+    var swiper = new Swiper('.swiper-container1', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      spaceBetween: 30,
+      effect: 'fade'
+    });
+
+    var watermark = document.querySelector('.fp-watermark');
+    if (watermark) {
+        watermark.style.display = 'none';
+    }  
+  });
+</script>

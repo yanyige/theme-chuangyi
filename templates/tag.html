@@ -5,7 +5,7 @@
   th:with="banner_img_height = ${#conversions.convert(theme.config.tag.banner_img_height, 'java.lang.Integer')}">
   <header th:with="banner_img= ${#strings.isEmpty(tag.spec.cover) ? theme.config.tag.banner_img : tag.spec.cover},
   banner_mask_alpha=${theme.config.tag.banner_mask_alpha},
-  _title=${'标签' + ' - ' + tag.spec.displayName}">
+  _title=${'创易工作室-用热爱创造无限可能'}">
     <th:block th:replace="~{'modules/header'}" />
   </header>
   <main>

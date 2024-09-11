@@ -1,25 +1,25 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-fluid
+  name: theme-chuangyi
   annotations:
     "store.halo.run/app-id": "app-jbTyl"
 spec:
-  displayName: Theme Fluid
+  displayName: theme-chuangyi
   author:
-    name: 困困鱼
-    website: "https://github.com/chengzhongxue"
+    name: yyg
+    website: "https://github.com/yanyige"
   customTemplates:
     page:
       - name: 关于页面
         description: 关于页面模版
         screenshot:
         file: about.html
-  description: 🌊 一款 Material Design 风格的 Halo 主题 / An elegant Material-Design theme for Halo
-  logo: "/themes/theme-fluid/assets/img/fluid.png"
+  description: 🌊 创易工作室Halo主题
+  logo: "/themes/theme-chuangyi/assets/img/cmd.png"
   website: "https://www.halo.run/store/apps/app-jbTyl"
-  repo: "https://github.com/chengzhongxue/halo-theme-fluid"
-  issues:  "https://github.com/chengzhongxue/halo-theme-fluid/issues"
+  repo: "https://github.com/yanyige/halo-theme-chuangyi"
+  issues:  "https://github.com/yanyige/halo-theme-chuangyi/issues"
   settingName: "theme-fluid-setting"
   configMapName: "theme-fluid-configMap"
   version: "1.0.5"
